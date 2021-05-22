@@ -65,8 +65,7 @@ class stream:
                 self.sfc_a_vprs = (self.sf_a_vprs + (self.trim_distance / self.input_fps)) * self.cut_counter_vprs
                 if self.sfc_a_vprs == 0:
                     self.sfc_a_vprs = 1
-                else:
-                    pass
+         
                 self.efc_a_vprs = self.sfc_a_vprs + (self.trim_distance / self.input_fps)
                 self.video_vprs = self.input_vprs.video.filter('fps',fps=24,round='up').filter('scale',width=self.q_width,height=self.q_height).trim(start_frame=self.sfc_vprs,end_frame=self.efc_vprs)
                 self.audio_vprs = self.input_vprs.audio.filter('atrim',start=self.sfc_a_vprs,end=self.efc_a_vprs)
@@ -124,24 +123,20 @@ class stream:
             self.encode_processor('360',self.q360['width'],self.q360['height'],self.q360['b:v'],self.q360['b:a'])
             self.master_m3u8_list.append('#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=460560,RESULATION=640X360,NAME="360"')
             self.master_m3u8_list.append('trimmed/360-playlist.m3u8')
-        else:
-            pass
+   
         if '480' in self.resulation:
             self.encode_processor('480',self.q480['width'],self.q480['height'],self.q480['b:v'],self.q480['b:a'])
             self.master_m3u8_list.append('#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=836280,RESULATION=848X480,NAME="480"')
             self.master_m3u8_list.append('trimmed/480-playlist.m3u8')
-        else:
-            pass
+      
         if '720' in self.resulation:
             self.encode_processor('720',self.q720['width'],self.q720['height'],self.q720['b:v'],self.q720['b:a'])
             self.master_m3u8_list.append('#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=2149280,RESULATION=1280X720,NAME="720"')
             self.master_m3u8_list.append('trimmed/720-playlist.m3u8')
-        else:
-            pass
+      
         if '1080' in self.resulation:
             self.encode_processor('1080',self.q1080['width'],self.q1080['height'],self.q1080['b:v'],self.q1080['b:a'])
             self.master_m3u8_list.append('#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=6221600,RESULATION=1920X1080,NAME="720"')
             self.master_m3u8_list.append('trimmed/1080-playlist.m3u8')
-        else:
-            pass
+      
         return self.m3u8_master_builder(self.master_m3u8_list)
